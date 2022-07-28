@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.my.mapper.ProductMapper">
+  	<insert id="setProduct">
+		insert into product (productname,productprice,productcontents,useremail) values (#{productname},#{productprice},#{productcontents},#{useremail})
+  	</insert>
+
+  	<insert id="setFile">
+  		insert into files values (#{productnum},#{filerealname},#{filename},#{fileurl},#{safefile})
+  	</insert>
+  	<select id="getProduct" resultType="com.my.domain.ProductDTO">
+  		select * from product;
+  	</select>
+  	<select id="getproduct" resultType="com.my.domain.ProductDTO">
+  		select * from product where productnum = #{productnum};
+  	</select>
+  	<select id="getFile" resultType="com.my.domain.Files">
+  		select * from files;
+  	</select>
+  	<select id="getProductnum" resultType="_int">
+  		select max(productnum) from product;
+  	</select>
+  	<select id="getFilename" resultType="string">
+  		select filename from files where productnum = #{productnum};
+  	</select>
+  </mapper>
