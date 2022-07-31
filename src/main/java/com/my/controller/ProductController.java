@@ -10,12 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +27,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.my.domain.ProductDTO;
+import com.my.domain.ReviewDTO;
 import com.my.service.ProductService;
+import com.my.service.UserService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -35,6 +40,7 @@ import lombok.extern.log4j.Log4j;
 public class ProductController {
 	@Setter(onMethod_ = @Autowired)
 	private ProductService service;
+	
 	
 	@GetMapping("/addproduct")
 	public void addproduct() {
@@ -94,8 +100,10 @@ public class ProductController {
 	public void goboard(ProductDTO productnum, Model model) {
 		String filename = service.getFilename(productnum.getProductnum());
 		ProductDTO prod = service.getproduct(productnum.getProductnum());
+		List<ReviewDTO> review = service.getReview(productnum.getProductnum());
 		model.addAttribute("filename", filename);
 		model.addAttribute("product", prod);
+		model.addAttribute("review", review);
 	}
 }
 
