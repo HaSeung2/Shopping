@@ -15,7 +15,7 @@
 		select count(useremail) from shopping_user where useremail = #{useremail}
 	</select> 
 	<select id="login" parameterType="com.my.domain.UserDTO" resultType="com.my.domain.UserDTO">
-		select * from shopping_user where useremail = #{useremail} and userpw = #{userpw}
+		select * from shopping_user where useremail = #{useremail} and binary(userpw) = #{userpw}
 	</select>
 	<select id="getUser" resultType="com.my.domain.UserDTO">
 		select * from shopping_user where useremail = #{useremail}
@@ -32,4 +32,18 @@
 	<update id="zipCn">
 		update shopping_user set postnum=#{postnum}, addr=#{addr}, detailaddress=#{detailaddress}, seealso=#{seealso} where useremail=#{useremail}
 	</update>
+	
+	<!-- 리뷰 매퍼 -->
+	<insert id="review">
+  		insert into review (useremail,username,productnum,reviewcontents) values(#{useremail},#{username},#{productnum},#{reviewcontents})
+  	</insert>
+  	<select id="getReviewnum" resultType="_int">
+  		select max(reviewnum) from review
+  	</select>
+  	<update id="reviewModify">
+  		update review set reviewcontents = #{reviewcontents} where reviewnum = #{reviewnum}
+  	</update>
+	<delete id="reviewDelete">
+		delete from review where reviewnum = #{reviewnum}
+	</delete>
 </mapper>
