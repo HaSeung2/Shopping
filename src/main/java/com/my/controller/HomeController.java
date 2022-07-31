@@ -22,12 +22,15 @@ import lombok.Setter;
  */
 @Controller
 public class HomeController {
+	@Setter(onMethod_ = @Autowired)
+	private ProductService service;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -37,8 +40,12 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
+		model.addAttribute("product",service.getProduct());
+		model.addAttribute("file", service.getFile());
+		model.addAttribute("maxnum", service.getProductnum());
 		
 		return "home";
 	}
 	
 }
+
