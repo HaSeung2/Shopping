@@ -62,7 +62,16 @@
 		.py-5 .bg-dark{
 			margin-top:90px;
 		}
-
+		.zipnum.inputt{
+			width:100%;
+		}
+		.reviewBTN{
+			float : right;
+			margin-right:10px;
+		}
+		.inlinereview{
+			display:inline;
+		}
 </style>
 </head>
 <body>
@@ -127,7 +136,7 @@
         
         <!-- 리뷰 작성 -->
 		<button type="button" name="review" id="onReview">리뷰 작성하기</button>
-		<div class="product-page-content" id="review" style="display:none;">
+		<div class="product-page-content" id="review" >
 			<ul id="myTap" class="nav nav-tabs">
 				<li class="active">
 					<a href="#" data-togle="tab">리뷰</a>
@@ -135,16 +144,23 @@
 			</ul>
 			 <div class="tab-content" style="width:100%;">
 				<div class="tab-pane fade in active">
+				<c:forEach items="${review}" var="review">
 					<div class="review-item clearfix">
 						<div class="review-item-submitted">
-							<strong>작성자 이름</strong>
-							<em>작성 시간</em>
+							<strong>${review.username}</strong>
+							<em>${review.regdate}</em>
 						</div>
 						<div class="reivew-item-content">
-							<p>리뷰 내용</p>
+							<input class="inlinereview" value = "${review.reviewcontents}" readonly>
+							<c:if test="${loginUsername == review.username}">
+							<a href="${review.reviewnum}" class="reviewBTN del">삭제</a>
+							<a href="#" class="reviewBTN mdf" id="mdf">수정</a>
+							<a href="${review.reviewnum}" class="reviewBTN mdfOk" id="mdfOk" style="display:none;">수정 완료</a>
+ 							</c:if>
 						</div>
 					</div>
-					<form class="reviews-form" role="form">
+				</c:forEach>
+					<form class="reviews-form" role="form" style="display:none;">
 						<h2>리뷰 작성</h2>
 						<div class="form-group">
 							<label for="username">
@@ -159,10 +175,10 @@
 						</div>
 						<div class="form-group">
 							<label for="review">리뷰</label>
-							<textarea class="form-control" rows="8" id="review" style="word-break:break-all;width:100%;text-align:center;"></textarea>
+							<textarea class="form-control" rows="8" id="reviewTxt" style="word-break:break-all;width:100%;text-align:center;"></textarea>
 						</div>
 						<div class="padding-top-20">
-							<button type="submit" class="btn btn-primary">작성하기</button>
+							<button type="submit" class="btn btn-primary reviewBtn">작성하기</button>
 						</div>
 					</form>
 				</div>
@@ -182,24 +198,24 @@
 					<div class="inner">
 					<form name="buy">
 						<input type="hidden" value="${loginUserid}" name="useremail">
-							<table>
+							<table class = "zipnum-container">
 								<tr class="zipcode_area">
 									<th>우편번호</th>
 									<td>
-										<input readonly name="postnum" type="text" id="postnum" value="${postnum}"><input type="button" onclick="DaumPostcode()" value="우편번호 변경하기">
+										<input readonly class="zipnum inputt" name="postnum" type="text" id="postnum" value="${postnum}"><input type="button" onclick="DaumPostcode()" value="우편번호 변경하기">
 									</td>
 								</tr>
 								<tr class="addr_area">
 									<th>주소</th>
-									<td><input readonly name="addr" type="text" id="addr" value="${addr}"></td>
+									<td><input readonly class="zipnum inputt" name="addr" type="text" id="addr" value="${addr}"></td>
 								</tr>
 								<tr>
 									<th>상세주소</th>
-									<td><input name="detailaddress" type="text" id="detailaddress" value="${detailaddress}"></td>
+									<td><input class="zipnum inputt" name="detailaddress" type="text" id="detailaddress" value="${detailaddress}"></td>
 								</tr>
 								<tr>
 									<th>참고항목</th>
-									<td><input readonly name="seealso" type="text" id="seealso" value="${seealso}"></td>
+									<td><input readonly class="zipnum inputt" name="seealso" type="text" id="seealso" value="${seealso}"></td>
 								</tr>
 								<tr>
 									<th colspan="2">
@@ -242,7 +258,7 @@ let buyForm = $(".buyForm");
 		return false;
 	}
 	e.preventDefault();
-	productService.add(
+	buyService.add(
 			{useremail:useremail,username:username,productnum:productnum,productname:productname,postnum:postnum
 				,addr:addr,detailaddress:detailaddress,seealso:seealso
 			},
@@ -296,9 +312,91 @@ $("#zipSubmit").on("click",function(e){
     }
 });
 
+//리뷰 작성 버튼 클릭시 리뷰 작성 폼 보여주거나 닫기
+let flaut = false;
 $("#onReview").on("click",function(e){
+	if(flaut == true){
+		$(".reviews-form").hide();
+		$("#reviewTxt").val("");		
+		flaut = false;
+	}
+	else{
+	flaut = true;
 	e.preventDefault();
-	
+	$(".reviews-form").show();
+	}
+})
+
+//작성하기 버튼 클릭시 
+$(".reviewBtn").on("click",function(e){
+	e.preventDefault();
+	let reviewcontents = $("#reviewTxt").val();
+	if(useremail == ""){
+		alert("로그인 후 이용해주세요");
+		return;
+	}
+	else if(reviewcontents == null){
+		alert("내용을 입력해주세요");
+		return;
+	}
+	buyService.addreview(
+		{useremail:useremail, username:username, productnum:productnum, reviewcontents:reviewcontents},		
+		function(result){
+			if(result > 0){
+				alert(result+"번 리뷰 작성 성공!");
+				location.reload();
+			}
+		}
+	);
+});
+
+//리뷰 삭제
+$(".del").on("click",function(e){
+	e.preventDefault();
+	let reviewnum = $(this).attr('href');
+	buyService.drop(
+			reviewnum,
+		function(result){
+			if(result == "success"){
+				alert(reviewnum+"번 댓글 삭제 성공!");
+				location.reload();
+			}
+		}
+	)
+})
+
+//리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기 
+let mf = false;
+$("#mdf").on("click",function(e){
+	e.preventDefault();
+	if(mf == true){
+		alert("이미 수정중인 리뷰가 있습니다");
+		return;
+	}
+	mf = true;
+	$(".inlinereview").attr("readonly",false);
+	$(this).hide();
+	$(this).next().show();
+})
+
+//수정 완료 버튼
+$("#mdfOk").on("click",function(e){
+	e.preventDefault();
+	mf == false;
+	let reviewcontents = $(".inlinereview").val();
+	let reviewnum = $(this).attr('href');
+	 buyService.modify(
+		{reviewcontents:reviewcontents, reviewnum:reviewnum},
+		function(result){
+			if(result=="success"){
+				alert("댓글을 수정 하였습니다.");
+				$(".inlinereview").attr("readonly",true);
+				$(this).show();
+				$(this).prev().hide();
+				location.reload();
+			}
+		} 
+	)
 })
 </script>
 </html>
