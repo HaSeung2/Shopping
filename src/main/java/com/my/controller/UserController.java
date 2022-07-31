@@ -95,7 +95,6 @@ public class UserController {
 	@PostMapping("/message")
 	@ResponseBody
 	public String message(@RequestParam("userphone") String userphone) {
-		log.info("여기옴"+userphone);
 		String num = service.phone(userphone);
 		log.info(num);
 		return num;
