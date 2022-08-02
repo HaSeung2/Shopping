@@ -47,7 +47,7 @@ const buyService = (function(){
 				}
 			},
 			error:function(err){
-				alert("댓글을 삭제하지 못했습니다. 다시 시도해 주세요.");
+				alert("리뷰를 삭제하지 못했습니다. 다시 시도해 주세요.");
 			}
 		})
 	}
@@ -65,7 +65,7 @@ const buyService = (function(){
 				}
 			},
 			error:function(err){
-				alert("댓글 수정 실패. 다시 시도해주세요~");
+				alert("리뷰 수정 실패. 다시 시도해주세요~");
 			}
 		})
 	}
