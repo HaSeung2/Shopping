@@ -27,7 +27,7 @@ public String phone(String userphone) {
     }          
     HashMap<String, String> params = new HashMap<String, String>();
     params.put("to", userphone);
-    params.put("from", "01056419222");
+    params.put("from", "전화번호 입력");
     params.put("type", "SMS");
     params.put("text", "인증번호는 ["+numStr+"] 입니다.");
     params.put("app_version", "test app 1.2"); // application name and version
