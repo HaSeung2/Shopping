@@ -358,7 +358,7 @@ $(".del").on("click",function(e){
 			reviewnum,
 		function(result){
 			if(result == "success"){
-				alert(reviewnum+"번 댓글 삭제 성공!");
+				alert(reviewnum+"번 리뷰 삭제 성공!");
 				location.reload();
 			}
 		}
@@ -389,7 +389,7 @@ $("#mdfOk").on("click",function(e){
 		{reviewcontents:reviewcontents, reviewnum:reviewnum},
 		function(result){
 			if(result=="success"){
-				alert("댓글을 수정 하였습니다.");
+				alert("리뷰를 수정 하였습니다.");
 				$(".inlinereview").attr("readonly",true);
 				$(this).show();
 				$(this).prev().hide();
