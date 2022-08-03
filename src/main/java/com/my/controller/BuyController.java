@@ -31,12 +31,13 @@ public class BuyController {
 		return check ? new ResponseEntity<String>(productname,HttpStatus.OK) : new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	//리뷰 등록
+  //리뷰 작성
 	@PostMapping(value ="/review", consumes = "application/json")
 	public ResponseEntity<String> review(@RequestBody ReviewDTO review){
 		return service.review(review) ? new ResponseEntity<String>(service.getReviewnum()+"",HttpStatus.OK) : new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+
 	//리뷰 삭제
 	@PostMapping(value="/reviewDelete", consumes = "application/json")
 	public ResponseEntity<String> reviewDelete(@RequestBody int reviewnum){

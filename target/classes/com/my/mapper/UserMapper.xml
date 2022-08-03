@@ -35,6 +35,7 @@
 	<delete id="bye">
 		delete from shopping_user where useremail = #{useremail}	
 	</delete>
+	
 	<!-- 리뷰 매퍼 -->
 	<insert id="review">
   		insert into review (useremail,username,productnum,reviewcontents) values(#{useremail},#{username},#{productnum},#{reviewcontents})

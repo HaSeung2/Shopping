@@ -73,8 +73,3 @@ const buyService = (function(){
 	
 	return {add:insert,addreview:review, drop:reviewDelete, modify:reviewModify};
 })();
-
-
-
-
-

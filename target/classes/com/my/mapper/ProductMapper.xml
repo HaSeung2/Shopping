@@ -10,14 +10,11 @@
   	<insert id="setFile">
   		insert into files values (#{productnum},#{filerealname},#{filename},#{fileurl},#{safefile})
   	</insert>
-  	<select id="getProduct" resultType="com.my.domain.ProductDTO">
-  		select * from product;
-  	</select>
   	<select id="getproduct" resultType="com.my.domain.ProductDTO">
   		select * from product where productnum = #{productnum}
   	</select>
   	<select id="getFile" resultType="com.my.domain.Files">
-  		select * from files;
+  		select * from files
   	</select>
   	<select id="getProductnum" resultType="_int">
   		select max(productnum) from product
