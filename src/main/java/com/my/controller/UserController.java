@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -154,6 +155,20 @@ public class UserController {
 		return userpw;
 	}
 	
+	@PostMapping("/bye")
+	public String bye(String useremail, RedirectAttributes ra, HttpServletRequest resq) {
+		if(services.bye(useremail)) {
+			HttpSession session = resq.getSession();
+			session.invalidate();
+			ra.addFlashAttribute("byeSuc", "성공");
+		}
+		else {
+			ra.addFlashAttribute("byeF", "실패");
+		}
+		return "redirect:/";
+	}
+	
+	// Tiles body페이지 변경
     @RequestMapping(value="/myInfo")
     public String testPage() {
         return "/tiles/myInfo";
@@ -163,4 +178,11 @@ public class UserController {
     public String testPages() {
     	return "/tiles/pwchange";
     }
+    
+    @RequestMapping(value ="/bye")
+    public String byePage() {
+    	return "/tiles/bye";
+    }
 }
+
+

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.my.domain.Files;
 import com.my.domain.ProductDTO;
+import com.my.domain.ReviewDTO;
 import com.my.mapper.ProductMapper;
 
 import lombok.Setter;
@@ -54,5 +55,10 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public ProductDTO getproduct(int productnum) {
 		return mapper.getproduct(productnum);
+	}
+	
+	@Override
+	public List<ReviewDTO> getReview(int productnum) {
+		return mapper.getReview(productnum);
 	}
 }

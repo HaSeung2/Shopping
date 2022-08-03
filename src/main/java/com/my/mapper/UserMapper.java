@@ -3,6 +3,7 @@ package com.my.mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.my.domain.BuyProductDTO;
+import com.my.domain.ReviewDTO;
 import com.my.domain.UserDTO;
 
 public interface UserMapper {
@@ -15,4 +16,9 @@ public interface UserMapper {
 	int nameCn(@Param("useremail")String useremail, @Param("username")String username);
 	int zipCn(UserDTO user);
 	int buyProduct(BuyProductDTO buy);
+	int review(ReviewDTO review);
+	int getReviewnum();
+	boolean reviewDelete(int reviewnum);
+	boolean reviewModify(ReviewDTO review);
+	int bye(String useremail);
 }

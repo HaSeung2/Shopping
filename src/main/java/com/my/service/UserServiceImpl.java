@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.my.domain.BuyProductDTO;
+import com.my.domain.ReviewDTO;
 import com.my.domain.UserDTO;
 import com.my.mapper.UserMapper;
 
@@ -59,4 +60,37 @@ public class UserServiceImpl implements UserService{
 	public boolean buyProduct(BuyProductDTO buy) {
 		return mapper.buyProduct(buy) == 1;
 	}
+	
+	@Override
+	public boolean review(ReviewDTO review) {
+		return mapper.review(review) == 1;
+	}
+	
+	@Override
+	public int getReviewnum() {
+		return mapper.getReviewnum();
+	}
+	
+	@Override
+	public boolean reviewDelete(int reviewnum) {
+		return mapper.reviewDelete(reviewnum);
+	}
+	
+	@Override
+	public boolean reviewModify(ReviewDTO review) {
+		return mapper.reviewModify(review);
+	}
+	
+	@Override
+	public boolean bye(String useremail) {
+		return mapper.bye(useremail) == 1;
+	}
 }
+
+
+
+
+
+
+
+

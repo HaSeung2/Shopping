@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.my.domain.Files;
 import com.my.domain.ProductDTO;
+import com.my.domain.ReviewDTO;
 
 public interface ProductMapper {
 	int setProduct(ProductDTO prod);
@@ -15,4 +16,5 @@ public interface ProductMapper {
 	boolean setFile(@Param("fileurl")String fileurl, @Param("filerealname")String filerealname, @Param("filename")String filename, @Param("productnum")int productnum, @Param("safefile")String safefile);
 	String getFilename(int productnum);
 	ProductDTO getproduct(int productnum);
+	List<ReviewDTO> getReview(int productnum);
 }

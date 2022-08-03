@@ -18,9 +18,14 @@
         <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
     </head>
     <body>
-    <c:if test="${suc != null}">
+    <c:if test="${byeSuc != null}">
+	    <script>
+	    	alert("회원탈퇴되셨습니다. 다음에 또 이용해주세요");
+	    </script>
+    </c:if>
+    <c:if test="${byeF != null}">
     	<script>
-    		alert("상품 등록 완료!");
+    		alert("회원탈퇴를 진행 하던 중 오류가 발생했습니다. 다시 시도해주세요");
     	</script>
     </c:if>
     <c:if test="${t != null}">

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.my.domain.Files;
 import com.my.domain.ProductDTO;
+import com.my.domain.ReviewDTO;
 
 @Service
 public interface ProductService {
@@ -16,4 +17,5 @@ public interface ProductService {
 	int getProductnum();
 	String getFilename(int productnum);
 	ProductDTO getproduct(int productnum);
+	List<ReviewDTO> getReview(int productnum);
 }
