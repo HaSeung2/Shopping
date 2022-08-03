@@ -26,6 +26,8 @@ public String phone(String userphone) {
        numStr+=ran;
     }          
     HashMap<String, String> params = new HashMap<String, String>();
+    params.put("to", userphone);//문자를 받을 번호
+    params.put("from", "문자 보낼 번호");
     params.put("to", userphone);
     params.put("from", "전화번호 입력");
     params.put("type", "SMS");

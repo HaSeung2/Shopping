@@ -23,6 +23,7 @@ public class BuyController {
 	@Setter(onMethod_ = @Autowired)
 	private UserService service;
 	
+	//상품 구매
 	@PostMapping(value ="/buyProduct", consumes = "application/json")
 	public ResponseEntity<String> buyProduct(@RequestBody BuyProductDTO buy){
 		boolean check = service.buyProduct(buy);
@@ -30,16 +31,20 @@ public class BuyController {
 		return check ? new ResponseEntity<String>(productname,HttpStatus.OK) : new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+  //리뷰 작성
 	@PostMapping(value ="/review", consumes = "application/json")
 	public ResponseEntity<String> review(@RequestBody ReviewDTO review){
 		return service.review(review) ? new ResponseEntity<String>(service.getReviewnum()+"",HttpStatus.OK) : new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+
+	//리뷰 삭제
 	@PostMapping(value="/reviewDelete", consumes = "application/json")
 	public ResponseEntity<String> reviewDelete(@RequestBody int reviewnum){
 		return service.reviewDelete(reviewnum) ? new ResponseEntity<String>("success",HttpStatus.OK) : new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	//리뷰 수정
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value="/{reviewnum}", consumes = "application/json")
 	public ResponseEntity<String> reviewModify(@RequestBody ReviewDTO review){
 		return service.reviewModify(review) ? new ResponseEntity<String>("success",HttpStatus.OK):new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);

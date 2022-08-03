@@ -50,6 +50,7 @@
                 </div>
             </div>
 </header>
+<div class="container mb-3">
 	<form name="joinForm" id="joinForm" method="post">
 		<table id="container">
 			<tr>
@@ -107,6 +108,7 @@
 			</tr>
 		</table>
 	</form>
+</div>
 	<form id="phoneNumber" action="/user/message">
 	</form>
 	 <!-- Footer-->

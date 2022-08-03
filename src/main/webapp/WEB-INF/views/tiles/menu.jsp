@@ -34,12 +34,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#" class="left_item" role="menuitem" aria-current onclick="changePage('main2');">
-							<div class="menu_text">내 상품보기</div>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="left_item" role="menuitem" aria-current onclick="changePage('main3');">
+						<a href="/user/bye" class="left_item" role="menuitem" aria-current onclick="changePage('bye');">
 							<div class="menu_text">회원 탈퇴</div>
 						</a>
 					</li>

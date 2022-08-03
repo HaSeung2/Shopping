@@ -81,6 +81,10 @@ public class UserServiceImpl implements UserService{
 		return mapper.reviewModify(review);
 	}
 	
+	@Override
+	public boolean bye(String useremail) {
+		return mapper.bye(useremail) == 1;
+	}
 }
 
 

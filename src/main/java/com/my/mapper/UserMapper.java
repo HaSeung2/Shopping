@@ -20,4 +20,5 @@ public interface UserMapper {
 	int getReviewnum();
 	boolean reviewDelete(int reviewnum);
 	boolean reviewModify(ReviewDTO review);
+	int bye(String useremail);
 }

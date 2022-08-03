@@ -38,7 +38,6 @@
     <!-- /Tiles -->
 	
 	
-	<!-- 파일 업로드 설정 -->
 	<!-- 파일업로드 설정 -->
 <beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"> </beans:bean>
 	
@@ -46,6 +45,7 @@
 		<beans:property name="maxInMemorySize" value="52428800"/>
 		<beans:property name="defaultEncoding" value="utf-8"/>	
 	</beans:bean>
+	<!-- 파일 업로드 설정 -->
 	
 	<context:component-scan base-package="com.my.controller" />
 	

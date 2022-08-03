@@ -18,4 +18,5 @@ public interface UserService {
 	boolean review(ReviewDTO review);
 	int getReviewnum();
 	boolean reviewModify(ReviewDTO review);
+	boolean bye(String useremail);
 }

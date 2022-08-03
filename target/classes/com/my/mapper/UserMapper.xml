@@ -32,6 +32,9 @@
 	<update id="zipCn">
 		update shopping_user set postnum=#{postnum}, addr=#{addr}, detailaddress=#{detailaddress}, seealso=#{seealso} where useremail=#{useremail}
 	</update>
+	<delete id="bye">
+		delete from shopping_user where useremail = #{useremail}	
+	</delete>
 	
 	<!-- 리뷰 매퍼 -->
 	<insert id="review">

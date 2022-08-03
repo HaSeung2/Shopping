@@ -46,18 +46,11 @@ public class ProductController {
 	public void addproduct() {
 	}
 	
-	@PostMapping("/addproducte")
-	public String addpro(ProductDTO prod, RedirectAttributes ra) {
-		if(service.addProduct(prod)) {
-			ra.addFlashAttribute("suc", "성공");
-		}
-		return "redirect:/product/addproduct";
-	}
-	
 	@PostMapping("/uploadFile")
 	public  String insertinto(MultipartFile [] files, String productname, String productcontents, String productprice, String useremail,RedirectAttributes ra, HttpServletRequest request)throws IOException {
 		log.info(files);
 		ProductDTO prod = new ProductDTO();
+		//상품 정보들을 먼저 테이블에 저장시켜 준다.
 		prod.setProductname(productname);
 		prod.setProductcontents(productcontents);
 		prod.setProductprice(productprice);
@@ -66,23 +59,25 @@ public class ProductController {
 		
 		
         String fileurl = "D:\\1900_WEB_LHS\\my\\workspace\\Shopping\\src\\main\\webapp\\resources\\img\\";
-        log.info(fileurl);
         for (MultipartFile mf : files) {
+        	//사용자가 업로드한 파일이 있다면 아래 로직 수행
             String filerealname = mf.getOriginalFilename(); // 원본 파일 명
             long filesSize = mf.getSize(); // 파일 사이즈
 
-            System.out.println("originFileName : " + filerealname);
-            System.out.println("filesSize : " + filesSize);
             
+            //저장할 때 파일 이름이 겹치지 않도록 랜덤 id를 부여한다.
             UUID uuid = UUID.randomUUID();
             
             String filename = uuid+filerealname;
             String safefile = fileurl+uuid+filerealname;
             try {
+            	//같이 넘어온 상품의 상품 번호를 가져온다.
             	int productnum = service.getProductnum();
-            	System.out.println(productnum);
+            	//이미지 파일을 db에 저장시키는 것에 성공 하면
             	if(service.setFile(fileurl, filerealname, filename, productnum,safefile)) {
+            		//지정해둔 경로에 이미지를 업로드시킨 후 메인 화면으로 보낸다.
             		mf.transferTo(new File(safefile));
+            		ra.addFlashAttribute("suc","tt");
             	}
             	else {
             		ra.addFlashAttribute("f", "실패");
@@ -96,11 +91,13 @@ public class ProductController {
         }
         return "redirect:/";
 }
+	
 	@GetMapping("/board")
 	public void goboard(ProductDTO productnum, Model model) {
 		String filename = service.getFilename(productnum.getProductnum());
 		ProductDTO prod = service.getproduct(productnum.getProductnum());
 		List<ReviewDTO> review = service.getReview(productnum.getProductnum());
+		//board.jsp로 넘겨줄 데이터
 		model.addAttribute("filename", filename);
 		model.addAttribute("product", prod);
 		model.addAttribute("review", review);

@@ -34,6 +34,7 @@ create table files(
 
 create table buyproduct(
 	useremail varchar(300),
+    username varchar(300),
     productnum int,
     productname varchar(300),
 	postnum int,
@@ -41,8 +42,21 @@ create table buyproduct(
     detailaddress varchar(3000),
     seealso varchar(1000)
 );
-select * from buyproduct;
 
+create table review(
+	reviewnum int primary key auto_increment,
+	useremail varchar(300),
+    username varchar(300),
+    productnum int,
+    reviewcontents varchar(6000),
+    regdate datetime default now()
+);
+
+
+
+select * from review;
+drop table review;
+select * from buyproduct;
 drop table buyproduct;
 select * from files; 
 drop table product;

@@ -89,9 +89,6 @@
 								<li>
 									<div id="phoneNoReDiv" class="row_item phone">
 										<span id="phoneNoReSpan" class="item_text">전화번호 : ${userphone}</span>
-										<button type="button" id="phoneNoReBtn" class="btn_edit">
-											<span id="phoneNoReBtbTXT" class="text">수정</span>
-										</button>
 									</div>
 								</li>
 								<li>
@@ -124,7 +121,7 @@
 						<form method="post" class="nameForm" id="nameForm">
 						<input type="hidden" value="${loginUserid}" name="useremail">
 							<div class="col-12">
-								<input type="text" class="username" name = "username" id="username" placeholder="변경하실 이름을 입력해주세요.">
+								<input type="text" class="username" name = "username" id="username" placeholder="변경하실 이름 입력">
 								<button type="submit" id="nameBtn" class="btn_edit">
 										<span id="nameBtnTXT" class="text">수정완료</span>
 								</button>
